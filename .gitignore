@@ -1,0 +1,7 @@
+.idea
+*.iml
+src/misc
+my.css
+out
+gh-pages
+src/*.*
