@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 7</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter1.html">
+                  chapter1
+                </a>
+              
+                
+                <a class="source" href="chapter2.html">
+                  chapter2
+                </a>
+              
+                
+                <a class="source" href="chapter3.html">
+                  chapter3
+                </a>
+              
+                
+                <a class="source" href="chapter4.html">
+                  chapter4
+                </a>
+              
+                
+                <a class="source" href="chapter5.html">
+                  chapter5
+                </a>
+              
+                
+                <a class="source" href="chapter6.html">
+                  chapter6
+                </a>
+              
+                
+                <a class="source" href="chapter7.html">
+                  chapter7
+                </a>
+              
+                
+                <a class="source" href="chapter8.html">
+                  chapter8
+                </a>
+              
+                
+                <a class="source" href="chapter9.html">
+                  chapter9
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-7">Scala For The Impatient – Chapter 7</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="exercise-1">Exercise 1</h2>
+<blockquote>
+<p>Write an example program to demonstrate that</p>
+<pre><code><span class="hljs-keyword">package</span> com.horstmann.impatient
+</code></pre><p>is not the same as</p>
+<pre><code><span class="hljs-keyword">package</span> com
+<span class="hljs-keyword">package</span> horstmann
+<span class="hljs-keyword">package</span> impatient
+</code></pre></blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">package</span> com {
+
+  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ComConstants</span> </span>{<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">name</span> </span>= <span class="hljs-string">"com"</span>}
+
+  <span class="hljs-keyword">package</span> horstmann {
+
+    <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">HorstmannConstants</span> </span>{<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">name</span> </span>= <span class="hljs-string">"horstmann"</span>}
+
+  }
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Here, we <em>need</em> to import the <code>com</code> and <code>com.horstmann</code> packages
+or fully qualify the constant objects…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">package</span> com.horstmann.impatient {
+
+  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">UseConstants</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{
+    println(com.<span class="hljs-type">ComConstants</span>.name)
+    println(com.horstmann.<span class="hljs-type">HorstmannConstants</span>.name) <span class="hljs-comment">// println(HorstmannConstants.name) won't work</span>
+  }
+
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="exercise-2">Exercise 2</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <blockquote>
+<p>Write a puzzler that baffles your Scala friends, using a package com that isn’t at the top level.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">package</span> puzzler.scala.com {
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="exercise-3">Exercise 3</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <blockquote>
+<p>Write a package random with functions <code>nextInt(): Int</code>, <code>nextDouble(): Double</code>, and <code>setSeed(seed: Int): Unit</code>.
+To generate random numbers, use the linear congruential generator</p>
+<pre><code>next = previous × a + b mod <span class="hljs-number">2</span>^n
+</code></pre><p>where a = 1664525, b = 1013904223, and n = 32.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+
+<span class="hljs-keyword">package</span> <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">random</span> </span>{
+
+  <span class="hljs-keyword">val</span> a = <span class="hljs-number">1664525</span>
+  <span class="hljs-keyword">val</span> b = <span class="hljs-number">1013904223</span>
+  <span class="hljs-keyword">val</span> n = <span class="hljs-number">32</span>
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> _current = <span class="hljs-number">1</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nextInt</span></span>(): <span class="hljs-type">Int</span> = {
+    _current = _current * a + b % math.pow(<span class="hljs-number">2</span>, n).toInt
+    _current
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nextDouble</span></span>(): <span class="hljs-type">Double</span> = nextInt()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setSeed</span></span>(seed: <span class="hljs-type">Int</span>): <span class="hljs-type">Unit</span> = _current = seed
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Test our random:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">package</span> random {
+
+  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">RandomTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{
+
+    println((<span class="hljs-number">0</span> to <span class="hljs-number">10</span>).map(_ =&gt; random.nextInt()).mkString(<span class="hljs-string">", "</span>))
+
+    random.setSeed(<span class="hljs-number">42</span>)
+    <span class="hljs-keyword">val</span> seeded1 = (<span class="hljs-number">0</span> to <span class="hljs-number">5</span>).map(_ =&gt; random.nextDouble())
+    random.setSeed(<span class="hljs-number">42</span>)
+    <span class="hljs-keyword">val</span> seeded2 = (<span class="hljs-number">0</span> to <span class="hljs-number">5</span>).map(_ =&gt; random.nextDouble())
+    assert(seeded1 == seeded2)
+  }
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="exercise-4">Exercise 4</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <blockquote>
+<p>Why do you think the Scala language designers provided the package object syntax instead of simply letting you add functions and variables to a package?</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>I am not sure. Here are my thoughts.</p>
+<p>Packages can be defined/extended in multiple files, so it could become messy and difficult to figure out what are
+the function and definitions a package includes. With object packages (only one per package level), all the definitions
+are gathered in one place.</p>
+<p>It enforce the <em>everything is an object</em> rule.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>TODO</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="exercise-5">Exercise 5</h2>
+<blockquote>
+<p>What is the meaning of private[com] def giveRaise(rate: Double)? Is it useful?</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p><code>private[com]</code> means that the <code>giveRaise</code> method can only be called from an object inside the <code>com</code> package.
+It is not visible from the outside world (i.e. outside the base package <code>com</code>).</p>
+<p>Semantically, this means not anybody can give a raise, but only “people” part of the <code>com</code> organisation.
+But the problem is, <code>com</code> is a widely used top-level package, so in this case the restriction is not very useful.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h2 id="exercise-6">Exercise 6</h2>
+<blockquote>
+<p>Write a program that copies all elements from a Java hash map into a Scala hash map. Use imports to rename both classes.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">SJMap</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Imports with aliases</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">import</span> java.util.{<span class="hljs-type">HashMap</span> =&gt; <span class="hljs-type">JHashMap</span>}
+
+  <span class="hljs-keyword">import</span> scala.collection.mutable.{<span class="hljs-type">HashMap</span> =&gt; <span class="hljs-type">SHashMap</span>}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>First, let’s try to do the conversion by ourselves.</p>
+<p>Note that there is no <code>fold</code> or equivalent defined for java maps and
+a java map does not implements the <code>foreach</code> used in scala.
+In the same way, an entryset is not a tuple… In short, using
+plain old java is a pain in the <em>*</em> …</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">toScalaMap</span></span>[<span class="hljs-type">K</span>, <span class="hljs-type">V</span>](jmap: <span class="hljs-type">JHashMap</span>[<span class="hljs-type">K</span>, <span class="hljs-type">V</span>]): <span class="hljs-type">SHashMap</span>[<span class="hljs-type">K</span>, <span class="hljs-type">V</span>] = {
+    <span class="hljs-keyword">var</span> smap = <span class="hljs-keyword">new</span> <span class="hljs-type">SHashMap</span>[<span class="hljs-type">K</span>, <span class="hljs-type">V</span>]()
+    <span class="hljs-keyword">var</span> iter = jmap.entrySet().iterator()
+    <span class="hljs-keyword">while</span> (iter.hasNext) {
+      <span class="hljs-keyword">val</span> e = iter.next
+      smap(e.getKey) = e.getValue
+    }
+
+    smap
+  }
+
+  <span class="hljs-keyword">var</span> jmap = <span class="hljs-keyword">new</span> <span class="hljs-type">JHashMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]()
+  jmap.put(<span class="hljs-string">"a"</span>, <span class="hljs-number">1</span>)
+  jmap.put(<span class="hljs-string">"b"</span>, <span class="hljs-number">2</span>)
+  jmap.put(<span class="hljs-string">"c"</span>, <span class="hljs-number">3</span>)
+
+  println(toScalaMap(jmap)) <span class="hljs-comment">//&gt; Map(b -&gt; 2, a -&gt; 1, c -&gt; 3)</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Now, let’s use the conversion util:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">import</span> scala.collection.<span class="hljs-type">JavaConverters</span>._</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Wraps the java map so scala functions are available:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  mapAsScalaMap(jmap).getClass <span class="hljs-comment">//&gt; scala.collection.convert.Wrappers$JMapWrapper</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Java map to an immutable scala map:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  jmap.asScala.toMap.getClass <span class="hljs-comment">//&gt; scala.collection.immutable.Map</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Java HashMap to a scala HashMap:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-type">SHashMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]() ++ jmap.asScala.toSeq <span class="hljs-comment">// scala.collection.mutable.Map</span>
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h2 id="exercise-7">Exercise 7</h2>
+<blockquote>
+<p>In the preceding exercise, move all imports into the innermost scope possible.
+Here, we can simply move the import statements inside the App (which we don’t have here, or inside a block</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h2 id="exercise-8">Exercise 8</h2>
+<blockquote>
+<ol>
+<li>What is the effect of<pre><code><span class="hljs-keyword">import</span> java._
+<span class="hljs-keyword">import</span> javax._
+</code></pre>Is this a good idea?</li>
+</ol>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Those imports bring all <code>java</code> and <code>javax</code> subpackages into scope.
+Since there are a lot of packages (and no class) inside them, we don’t really see the point. It is better to import only the packages we need.</p>
+<p>also, some packages might clash with the <code>scala._</code> ones (imported by default), such as <code>scala.util</code> (vs <code>java.util</code>): it might become misleading…</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h2 id="exercise-10">Exercise 10</h2>
+<blockquote>
+<p>Write a program that imports the java.lang.System class, reads the user name from the user.name system property, reads a password from the Console object, and prints a message to the standard error stream if the password is not “secret”. Otherwise, print a greeting to the standard output stream. Do not use any other imports, and do not use any qualified names (with dots).</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">GreetingApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{
+
+  <span class="hljs-keyword">import</span> java.lang.<span class="hljs-type">System</span>._
+
+  <span class="hljs-keyword">val</span> <span class="hljs-type">CORRECT_PASS</span> = <span class="hljs-string">"secret"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Get username:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">val</span> name = getProperty(<span class="hljs-string">"user.name"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>read password using System.in:
+(Note: using the scala console, it is way easier:</p>
+<pre><code><span class="hljs-keyword">val</span> pass = <span class="hljs-type">Console</span>.in.readLine
+</code></pre><p>but it uses <em>dots</em> (it was <code>Console.readLine</code> before, but it has
+been deprecated with scala 2.12)…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-type">Array</span>[<span class="hljs-type">Byte</span>](<span class="hljs-type">CORRECT_PASS</span>.length)
+  out.print(<span class="hljs-string">"&gt; "</span>)
+  in.read(buffer)
+  <span class="hljs-keyword">val</span> pass = <span class="hljs-keyword">new</span> <span class="hljs-type">String</span>(buffer)
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-type">CORRECT_PASS</span>.equals(pass)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>With the scala console, <code>System.out</code> is replaced by <code>Console.out</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    out.println(<span class="hljs-string">"hello "</span> + name)
+  } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>With the scala console, <code>System.err</code> is replaced by <code>Console.err</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    err.println(<span class="hljs-string">"incorrect password"</span>)
+  }
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <h2 id="exercise-11">Exercise 11</h2>
+<blockquote>
+<p>Apart from StringBuilder, what other members of java.lang does the scala package override?</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>There are plenty: <code>ArrayBuffer</code>, <code>HashMap</code>, <code>HashSet</code>, <code>Futures</code>, <code>math</code>, <code>List</code>, etc.</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

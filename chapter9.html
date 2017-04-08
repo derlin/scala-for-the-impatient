@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 9</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter1.html">
+                  chapter1
+                </a>
+              
+                
+                <a class="source" href="chapter2.html">
+                  chapter2
+                </a>
+              
+                
+                <a class="source" href="chapter3.html">
+                  chapter3
+                </a>
+              
+                
+                <a class="source" href="chapter4.html">
+                  chapter4
+                </a>
+              
+                
+                <a class="source" href="chapter5.html">
+                  chapter5
+                </a>
+              
+                
+                <a class="source" href="chapter6.html">
+                  chapter6
+                </a>
+              
+                
+                <a class="source" href="chapter7.html">
+                  chapter7
+                </a>
+              
+                
+                <a class="source" href="chapter8.html">
+                  chapter8
+                </a>
+              
+                
+                <a class="source" href="chapter9.html">
+                  chapter9
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-9">Scala For The Impatient – Chapter 9</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>we’ll need it to write to files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> java.io.<span class="hljs-type">PrintWriter</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="exercise-1">Exercise 1</h2>
+<blockquote>
+<p>Write a Scala code snippet that reverses the lines in a file (making the last line the first one, and so on)</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>quote:</p>
+<blockquote>
+<p>You have gotta dance like there is nobody watching
+Love like you will never be hurt
+Sing like there’s nobody listening
+And live like it is heaven on earth</p>
+</blockquote>
+<p>result: (I let you guess ^^)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> filename = <span class="hljs-string">"/tmp/quote.txt"</span>
+io.<span class="hljs-type">Source</span>.fromFile(filename)
+  .getLines.toArray
+  .reverse
+  .mkString(<span class="hljs-string">"\n"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="exercise-2">Exercise 2</h2>
+<blockquote>
+<p>Write a Scala program that reads a file with tabs, replaces each tab with spaces so that tab stops are at n-column boundaries, and writes the result to the same file.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tabs2spaces</span></span>(filename: <span class="hljs-type">String</span>, tabSize: <span class="hljs-type">Int</span> = <span class="hljs-number">4</span>): <span class="hljs-type">Unit</span> = {
+  <span class="hljs-keyword">import</span> java.io.<span class="hljs-type">PrintWriter</span>
+
+  <span class="hljs-keyword">val</span> textWithSpaces = io.<span class="hljs-type">Source</span>.fromFile(filename).mkString
+    .replaceAll(<span class="hljs-string">"\t"</span>, <span class="hljs-string">" "</span> * tabSize)
+
+  <span class="hljs-keyword">new</span> <span class="hljs-type">PrintWriter</span>(filename) {write(textWithSpaces); close}
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>tabs2spaces(“/tmp/fileWithTabs.txt”)</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="exercise-3">Exercise 3</h2>
+<blockquote>
+<p>Write a Scala code snippet that reads a file and prints all words with more than 12 characters to the console. Extra credit if you can do this in a single line.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Note: here, I print 6 chars or more, since my quote does not have
+many long words. Result: watching, listening.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>io.<span class="hljs-type">Source</span>.fromFile(filename).mkString
+  .split(<span class="hljs-string">"\\W+"</span>)
+  .filter(_.length &gt; <span class="hljs-number">6</span>)
+  .foreach(println(_))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="exercise-4">Exercise 4</h2>
+<blockquote>
+<p>Write a Scala program that reads a text file containing only floating-point numbers. Print the sum, average, maximum, and minimum of the numbers in the file.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">statsFromFile</span></span>(filename: <span class="hljs-type">String</span>): <span class="hljs-type">Unit</span> = {
+  <span class="hljs-keyword">val</span> (count, sum, min, max) =
+    io.<span class="hljs-type">Source</span>.fromFile(filename).mkString
+      .split(<span class="hljs-string">"[^0-9\\.-]+"</span>)
+      .map(_.toFloat)
+      .foldLeft((<span class="hljs-number">0</span>f, <span class="hljs-number">0</span>f, <span class="hljs-type">Float</span>.<span class="hljs-type">MaxValue</span>, -<span class="hljs-type">Float</span>.<span class="hljs-type">MaxValue</span>)) {
+        <span class="hljs-keyword">case</span> ((count, sum, min, max), elt) =&gt; (
+          count + <span class="hljs-number">1</span>,
+          sum + elt,
+          <span class="hljs-keyword">if</span> (elt &lt; min) elt <span class="hljs-keyword">else</span> min,
+          <span class="hljs-keyword">if</span> (elt &gt; max) elt <span class="hljs-keyword">else</span> max
+        )
+      }
+  println(<span class="hljs-string">s"sum=<span class="hljs-subst">$sum</span>, avg=<span class="hljs-subst">${sum / count}</span>, min=<span class="hljs-subst">$min</span>, max=<span class="hljs-subst">$max</span>"</span>)
+}
+
+statsFromFile(<span class="hljs-string">"/tmp/floats.txt"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="exercise-5">Exercise 5</h2>
+<blockquote>
+<p>Write a Scala program that writes the powers of 2 and their reciprocals to a file, with the exponent ranging from 0 to 20. Line up the columns.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>output:</p>
+<pre><code>  exp |      power | reciprocal
+  =============================
+    <span class="hljs-number">0</span> |          <span class="hljs-number">1</span> |   <span class="hljs-number">1.000000</span>
+    <span class="hljs-number">1</span> |          <span class="hljs-number">2</span> |   <span class="hljs-number">0.500000</span>
+    <span class="hljs-number">2</span> |          <span class="hljs-number">4</span> |   <span class="hljs-number">0.250000</span>
+    <span class="hljs-number">3</span> |          <span class="hljs-number">8</span> |   <span class="hljs-number">0.125000</span>
+    <span class="hljs-number">4</span> |         <span class="hljs-number">16</span> |   <span class="hljs-number">0.062500</span>
+    <span class="hljs-number">5</span> |         <span class="hljs-number">32</span> |   <span class="hljs-number">0.031250</span>
+    <span class="hljs-number">6</span> |         <span class="hljs-number">64</span> |   <span class="hljs-number">0.015625</span>
+    <span class="hljs-number">7</span> |        <span class="hljs-number">128</span> |   <span class="hljs-number">0.007813</span>
+    <span class="hljs-number">8</span> |        <span class="hljs-number">256</span> |   <span class="hljs-number">0.003906</span>
+    <span class="hljs-number">9</span> |        <span class="hljs-number">512</span> |   <span class="hljs-number">0.001953</span>
+   <span class="hljs-number">10</span> |       <span class="hljs-number">1024</span> |   <span class="hljs-number">0.000977</span>
+   <span class="hljs-number">11</span> |       <span class="hljs-number">2048</span> |   <span class="hljs-number">0.000488</span>
+   <span class="hljs-number">12</span> |       <span class="hljs-number">4096</span> |   <span class="hljs-number">0.000244</span>
+   <span class="hljs-number">13</span> |       <span class="hljs-number">8192</span> |   <span class="hljs-number">0.000122</span>
+   <span class="hljs-number">14</span> |      <span class="hljs-number">16384</span> |   <span class="hljs-number">0.000061</span>
+   <span class="hljs-number">15</span> |      <span class="hljs-number">32768</span> |   <span class="hljs-number">0.000031</span>
+   <span class="hljs-number">16</span> |      <span class="hljs-number">65536</span> |   <span class="hljs-number">0.000015</span>
+   <span class="hljs-number">17</span> |     <span class="hljs-number">131072</span> |   <span class="hljs-number">0.000008</span>
+   <span class="hljs-number">18</span> |     <span class="hljs-number">262144</span> |   <span class="hljs-number">0.000004</span>
+   <span class="hljs-number">19</span> |     <span class="hljs-number">524288</span> |   <span class="hljs-number">0.000002</span>
+   <span class="hljs-number">20</span> |    <span class="hljs-number">1048576</span> |   <span class="hljs-number">0.000001</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">powersOf2</span></span>(filename: <span class="hljs-type">String</span>): <span class="hljs-type">Unit</span> = {
+  <span class="hljs-keyword">val</span> printer = <span class="hljs-keyword">new</span> <span class="hljs-type">PrintWriter</span>(filename)
+  printer.write(<span class="hljs-string">"exp | %10s | %10s%n"</span>.format(<span class="hljs-string">"power"</span>, <span class="hljs-string">"reciprocal"</span>))
+  printer.write(<span class="hljs-string">"=============================\n"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>the fold can be replaced by a basic loop:</p>
+<pre><code><span class="hljs-keyword">var</span> exp = <span class="hljs-number">1</span>
+<span class="hljs-keyword">var</span> rec = <span class="hljs-number">1.0</span>
+<span class="hljs-keyword">for</span> (i &lt;- <span class="hljs-number">0</span> to <span class="hljs-number">20</span>) {
+  printer.write(<span class="hljs-string">"%3d | %10d | %10f%n"</span>.format(i, exp, rec))
+  exp *= <span class="hljs-number">2</span>
+  rec /= <span class="hljs-number">2</span>
+}
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  (<span class="hljs-number">0</span> to <span class="hljs-number">20</span>).foldLeft((<span class="hljs-number">1</span>, <span class="hljs-number">1.0</span>)) {
+    <span class="hljs-keyword">case</span> ((exp, rec), i) =&gt; {
+      printer.write(<span class="hljs-string">"%3d | %10d | %10f%n"</span>.format(i, exp, rec))
+      (exp * <span class="hljs-number">2</span>, rec / <span class="hljs-number">2</span>)
+    }
+  }
+
+  printer.close
+}
+
+powersOf2(<span class="hljs-string">"/tmp/powersOf2.txt"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="exercise-6">Exercise 6</h2>
+<blockquote>
+<p>Make a regular expression searching for quoted strings “like this, maybe with \” or \“ in a Java or C++ program. Write a Scala program that prints out all such strings in a source file.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>We want to find <em>an opening quote, anything being either an escaped quote or something else than a quote, then a closing quote</em>. In regex language:</p>
+<ul>
+<li>with special “”” escape:<pre><code>  <span class="hljs-string">""</span><span class="hljs-string">""</span>((?:(?:\\<span class="hljs-string">")|[^"</span>])*)<span class="hljs-string">""</span><span class="hljs-string">""</span>.r
+</code></pre></li>
+<li>the same without special escape:<pre><code>  <span class="hljs-string">"\"((?:(?:\\\\\")|[^\"])*)\""</span>.r
+</code></pre></li>
+<li>using non-greedy match: `<pre><code>  <span class="hljs-string">""</span><span class="hljs-string">""</span>((?:\\<span class="hljs-string">"|.)*?)"</span><span class="hljs-string">""</span><span class="hljs-string">".r</span>
+</code></pre>The <code>?:</code> after an opening parenthesis signify the parentheses don’t denote a capturing group.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">printStrings</span></span>(text: <span class="hljs-type">String</span>) = {
+
+  <span class="hljs-keyword">val</span> regex = <span class="hljs-string">""</span><span class="hljs-string">""</span>((?:(?:\\<span class="hljs-string">")|[^"</span>])*)<span class="hljs-string">""</span><span class="hljs-string">""</span>.r</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>use <code>for(m &lt;- regex.findAllIn(text)</code> to print the string with the quotes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">for</span> (regex(m) &lt;- regex.findAllIn(text))
+    println(<span class="hljs-string">s" -&gt; <span class="hljs-subst">$m</span>"</span>)
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>To read from a file, use:</p>
+<pre><code>printStrings{
+ io.<span class="hljs-type">Source</span>.fromFile(filename).mkString
+}
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>printStrings {
+  """
+   "this"
+   another line
+   and "this \" and \" that \\"
+  """.stripMargin
+} //&gt;  -&gt; "this"</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <blockquote>
+<p>-&gt; “this \” and \” that \“</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h2 id="exercise-7">Exercise  7</h2>
+<blockquote>
+<p>Write a Scala program that reads a text file and prints all tokens in the file that are not floating-point numbers. Use a regular expression.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Here is a simple tokenizer skipping floats. Another way would be:</p>
+<pre><code>floatingPointRegex.replaceAllIn(content, <span class="hljs-string">""</span>).split(<span class="hljs-string">"\\s"</span>)
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>{
+  <span class="hljs-keyword">val</span> floatingPointRegex = <span class="hljs-string">"[0-9]\\.[0-9]+"</span>.r
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tokeniseSkipFloats</span></span>(content: <span class="hljs-type">String</span>) =
+    content.split(<span class="hljs-string">"\\s+"</span>).foreach {
+      w =&gt; <span class="hljs-keyword">if</span> (!floatingPointRegex.findFirstIn(w).isDefined) println(w)
+    }
+
+  println(tokeniseSkipFloats {
+    io.<span class="hljs-type">Source</span>.fromFile(<span class="hljs-string">"/tmp/text-with-floats.txt"</span>).mkString
+  })
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h2 id="exercise-8">Exercise 8</h2>
+<blockquote>
+<p>Write a Scala program that prints the src attributes of all img tags of a web page. Use regular expressions and groups.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>For a quick try, use a simple string:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>val text =
+  """hello &lt;img src="https://mdn.mozillademos.org/files/12708/image-with-title.png"
+     alt="The dinosaur image"
+     style="display: block; height: 341px; margin: 0px auto; width: 400px;"&gt;"""
+    .replace("\n", "")</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>One can also directly download an real HTML page</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> html = io.<span class="hljs-type">Source</span>.fromURL(<span class="hljs-string">"https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML"</span>).mkString</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>We can use pattern matching in the for loop using <code>regexName(group1, group2, ...) &lt;-</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> imgSourceRegex = <span class="hljs-string">"&lt;img.*src=(?:\"|')([^\"']+).*&gt;"</span>.r
+<span class="hljs-keyword">for</span> (imgSourceRegex(src) &lt;- imgSourceRegex.findAllIn(html))
+  println(src)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>If one don’t want to use pattern matching, here is another [long] syntax.
+Note that in this case, <em>group 0</em> denotes the whole match.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">for</span> (m &lt;- imgSourceRegex.findAllIn(html).matchData)
+  println(m.group(<span class="hljs-number">1</span>))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h2 id="exercise-9">Exercise 9</h2>
+<blockquote>
+<p>Write a Scala program that counts how many files with .class extension are in a given directory and its subdirectories.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>There are currently no official Scala classes for visiting all files in a directory, so we will use the java ones…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">import</span> java.io.<span class="hljs-type">File</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Define a function for iterating on all files under a certains path, recursively. By returning an <code>Iterator</code>, it is possible to use the notation: <code>for(f &lt;- walkFiles(dir))</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">walkFiles</span></span>(rootDir: <span class="hljs-type">File</span>): <span class="hljs-type">Iterator</span>[<span class="hljs-type">File</span>] = {
+    <span class="hljs-keyword">val</span> children = rootDir.listFiles
+    children.filter(_.isFile).toIterator ++
+      children.filter(_.isDirectory).flatMap(walkFiles _)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Use the <code>walkFiles</code> method to count <code>.class</code> files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">countClassFiles</span></span>(rootDir: <span class="hljs-type">File</span>) =
+    walkFiles(rootDir)
+      .filter(_.getName.endsWith(<span class="hljs-string">".class"</span>))
+      .length</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Do some testing:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">val</span> path = <span class="hljs-string">"/Users/Lin/git/scala"</span> <span class="hljs-comment">// replace by your own path</span>
+  countClassFiles(<span class="hljs-keyword">new</span> <span class="hljs-type">File</span>(path)) <span class="hljs-comment">// my answer is a poor 14</span>
+
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <h2 id="exercise-10">Exercise 10</h2>
+<blockquote>
+<p>Expand the example with the serializable <code>Person</code> class that stores a collection of friends. Construct a few <code>Person</code> objects, make some of them friends of another, and then save an <code>Array[Person]</code> to a file. Read the array back in and verify that the friend relations are intact.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p><strong>Important !!</strong>: for the following to work, ensure you use a scala class (and not the scala worksheet). Indeed, the worksheet does not generate class files, so <code>Person.class</code> will be unknown during deserialisation… </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">import</span> scala.collection._
+
+<span class="hljs-meta">@SerialVersionUID</span>(<span class="hljs-number">42</span>L) <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>(<span class="hljs-params">val name: <span class="hljs-type">String</span>, friends: <span class="hljs-type">Person</span>*</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">Serializable</span> </span>{
+
+  <span class="hljs-keyword">private</span>[<span class="hljs-type">Person</span>] <span class="hljs-keyword">var</span> _friends = <span class="hljs-keyword">new</span> mutable.<span class="hljs-type">HashSet</span>[<span class="hljs-type">Person</span>]()
+
+  addFriends(friends: _*)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Friendship is idempotent:</p>
+<pre><code>a [friends <span class="hljs-keyword">with</span>] b &lt;=&gt; b [friends <span class="hljs-keyword">with</span>] a
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addFriends</span></span>(friends: <span class="hljs-type">Person</span>*): <span class="hljs-type">Array</span>[<span class="hljs-type">Person</span>] = {
+    <span class="hljs-keyword">for</span> (f &lt;- friends)
+      <span class="hljs-keyword">if</span> (!_friends.contains(f)) {
+        f._friends.add(<span class="hljs-keyword">this</span>)
+        _friends.add(f)
+      }
+
+    getFriends
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getFriends</span></span>() = _friends.toArray
+
+  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">toString</span> </span>=
+    <span class="hljs-string">s"Person[<span class="hljs-subst">$name</span>, friends=<span class="hljs-subst">${_friends.map(_.name).mkString(",")}</span>]"</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">MyApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{
+  <span class="hljs-keyword">val</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-type">Person</span>(<span class="hljs-string">"Jacques"</span>)
+  <span class="hljs-keyword">val</span> p2 = <span class="hljs-keyword">new</span> <span class="hljs-type">Person</span>(<span class="hljs-string">"Damien"</span>)
+  <span class="hljs-keyword">val</span> p3 = <span class="hljs-keyword">new</span> <span class="hljs-type">Person</span>(<span class="hljs-string">"Lucy"</span>, p1, p2)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>This should yield:</p>
+<pre><code><span class="hljs-type">Person</span>[<span class="hljs-type">Jacques</span>, friends=<span class="hljs-type">Lucy</span>]
+<span class="hljs-type">Person</span>[<span class="hljs-type">Damien</span>, friends=<span class="hljs-type">Lucy</span>]
+<span class="hljs-type">Person</span>[<span class="hljs-type">Lucy</span>, friends=<span class="hljs-type">Jacques</span>,<span class="hljs-type">Damien</span>]
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  println(p1)
+  println(p2)
+  println(p3)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Serialize to temp file:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">import</span> java.io._
+
+  <span class="hljs-keyword">val</span> tempFile = <span class="hljs-string">"/tmp/test.obj"</span>
+  <span class="hljs-keyword">val</span> out = <span class="hljs-keyword">new</span> <span class="hljs-type">ObjectOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">FileOutputStream</span>(tempFile))
+  out.writeObject(<span class="hljs-type">List</span>(p1, p2, p3))
+  out.close()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>Read back the list and print the objects:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">val</span> in = <span class="hljs-keyword">new</span> <span class="hljs-type">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-type">FileInputStream</span>(tempFile))
+  <span class="hljs-keyword">val</span> deser = in.readObject().asInstanceOf[<span class="hljs-type">List</span>[<span class="hljs-type">Person</span>]]
+  <span class="hljs-keyword">for</span> (p &lt;- deser) println(p)
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

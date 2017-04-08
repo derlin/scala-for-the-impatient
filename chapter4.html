@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 4</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter1.html">
+                  chapter1
+                </a>
+              
+                
+                <a class="source" href="chapter2.html">
+                  chapter2
+                </a>
+              
+                
+                <a class="source" href="chapter3.html">
+                  chapter3
+                </a>
+              
+                
+                <a class="source" href="chapter4.html">
+                  chapter4
+                </a>
+              
+                
+                <a class="source" href="chapter5.html">
+                  chapter5
+                </a>
+              
+                
+                <a class="source" href="chapter6.html">
+                  chapter6
+                </a>
+              
+                
+                <a class="source" href="chapter7.html">
+                  chapter7
+                </a>
+              
+                
+                <a class="source" href="chapter8.html">
+                  chapter8
+                </a>
+              
+                
+                <a class="source" href="chapter9.html">
+                  chapter9
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-4">Scala For The Impatient – Chapter 4</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="exercise-1">Exercise 1</h2>
+<blockquote>
+<p>Set up a map of prices for a number of gizmos that you covet. Then produce a second map with the same keys and the prices at a 10 percent discount.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create the map using tuples:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> wishlist1 = <span class="hljs-type">Map</span>((<span class="hljs-string">"this"</span>, <span class="hljs-number">10.0</span>), (<span class="hljs-string">"that"</span>, <span class="hljs-number">25.0</span>), (<span class="hljs-string">"and that"</span>, <span class="hljs-number">123.1</span>))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Create the map using map notation:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> whishlist2 = <span class="hljs-type">Map</span>(
+  <span class="hljs-string">"this"</span> -&gt; <span class="hljs-number">10</span>,
+  <span class="hljs-string">"that"</span> -&gt; <span class="hljs-number">25</span>,
+  <span class="hljs-string">"and that"</span> -&gt; <span class="hljs-number">123.1</span>
+)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Discount using map:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>wishlist1.mapValues(_ * <span class="hljs-number">.9</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Discount using for:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">for</span> ((k, v) &lt;- wishlist1) <span class="hljs-keyword">yield</span> (k, v * <span class="hljs-number">.9</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="exercise-2">Exercise 2</h2>
+<blockquote>
+<p>Write a program that reads words from a file. Use a mutable map to count how often each word appears. To read the words, simply use a java.util.Scanner</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>create a file in /tmp called quote.txt before running this
+example:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> filename = <span class="hljs-string">"/tmp/quote.txt"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>By default, Maps are read only. Here, we import the proper package
+and rename the <code>Map</code> to <code>MutableMap</code> to avoid confusion</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> scala.collection.{<span class="hljs-type">JavaConverters</span>, mutable}
+<span class="hljs-keyword">import</span> scala.collection.mutable.{<span class="hljs-type">Map</span> =&gt; <span class="hljs-type">MutableMap</span>}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Using Java classes:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> wordcount1 = <span class="hljs-type">MutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]().withDefault(_ =&gt; <span class="hljs-number">0</span>)
+<span class="hljs-keyword">val</span> in = <span class="hljs-keyword">new</span> java.util.<span class="hljs-type">Scanner</span>(<span class="hljs-keyword">new</span> java.io.<span class="hljs-type">File</span>(filename))
+<span class="hljs-keyword">while</span> (in.hasNext()) wordcount1(in.next.toLowerCase) += <span class="hljs-number">1</span>
+wordcount1</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>A more scalarest way:
+Note that the lambda could also be written:</p>
+<pre><code> (m, w) =&gt; {m(w) += <span class="hljs-number">1</span>; m}
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>scala.io.<span class="hljs-type">Source</span>.fromFile(filename).mkString
+  .split(<span class="hljs-string">"\\s+"</span>)
+  .map(_.toLowerCase)
+  .foldLeft {
+    <span class="hljs-type">MutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]().withDefault(_ =&gt; <span class="hljs-number">0</span>)
+  } {
+    (m, w) =&gt; m += (w -&gt; (m(w) + <span class="hljs-number">1</span>))
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h2 id="exercise-3">Exercise 3</h2>
+<blockquote>
+<p>Repeat the preceding exercise with an immutable map.</p>
+</blockquote>
+<p>Here, the sole change is the <code>+=</code> which becomes <code>+</code>.
+Also, recall that the <code>+</code> on a map override the record if the key
+already exists…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> scala.collection.immutable.{<span class="hljs-type">Map</span> =&gt; <span class="hljs-type">ImutableMap</span>}
+
+scala.io.<span class="hljs-type">Source</span>.fromFile(filename).mkString.split(<span class="hljs-string">"\\s+"</span>)
+  .map(_.toLowerCase)
+  .foldLeft {
+    <span class="hljs-type">ImutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]()
+  } {
+    (m, w) =&gt; m + (w -&gt; (m.getOrElse(w, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>))
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="exercise-4">Exercise 4</h2>
+<blockquote>
+<p>Repeat the preceding exercise with a sorted map, so that the words are printed in sorted order.</p>
+</blockquote>
+<p>The only change is the use of <code>SortedMap</code> as the <code>foldLeft</code> accumulator.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>scala.io.<span class="hljs-type">Source</span>.fromFile(filename).mkString.split(<span class="hljs-string">"\\s+"</span>)
+  .map(_.toLowerCase)
+  .foldLeft {
+    mutable.<span class="hljs-type">SortedMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]().withDefault(_ =&gt; <span class="hljs-number">0</span>)
+  } {
+    (m, w) =&gt; {m(w) += <span class="hljs-number">1</span>; m}
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h2 id="exercise-5">Exercise 5</h2>
+<blockquote>
+<p>Repeat the preceding exercise with a java.util.TreeMap that you adapt to the Scala API.</p>
+</blockquote>
+<p>Here, we just show how to get an accumulator of the scala <code>Map</code> type. Use it in the code of exercise 4 to test it (the result should not change, since a tree map is a sorted map).</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>The first way is to use <code>mapAsScalaMap</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> scala.collection.<span class="hljs-type">JavaConverters</span>.mapAsScalaMap
+
+<span class="hljs-keyword">var</span> acc1: <span class="hljs-type">MutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>] = mapAsScalaMap {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Note that even though we use a Java class, we use scala classes as type parameters</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">new</span> java.util.<span class="hljs-type">TreeMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>We can also use <code>asScala</code>:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> scala.collection.<span class="hljs-type">JavaConverters</span>._
+
+<span class="hljs-keyword">var</span> acc2: <span class="hljs-type">MutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>] =
+  <span class="hljs-keyword">new</span> java.util.<span class="hljs-type">TreeMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>].asScala</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h2 id="exercise-6">Exercise 6</h2>
+<blockquote>
+<p>Define a linked hash map that maps “Monday” to <code>java.util.Calendar.MONDAY</code>, and similarly for the other weekdays. Demonstrate that the elements are visited in insertion order.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h3 id="map-digression">Map digression</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p><strong>Populating</strong> a mutable map</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">var</span> m1 = <span class="hljs-keyword">new</span> mutable.<span class="hljs-type">HashMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <ul>
+<li>using <code>put</code></li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m1.put(<span class="hljs-string">"One"</span>, <span class="hljs-number">1</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <ul>
+<li>using the <code>+</code> operator</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m1 += (<span class="hljs-string">"Two"</span> -&gt; <span class="hljs-number">2</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <ul>
+<li>using <code>update</code></li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m1 update(<span class="hljs-string">"Three"</span>, <span class="hljs-number">3</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <ul>
+<li>using an assignment (<em>Warning</em>: this fails in an IntelliJ worksheet…):
+m1(“Four”) = 4</li>
+</ul>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p><strong>creating</strong> a map</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <ul>
+<li>using the regular <code>new</code> keyword</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">new</span> mutable.<span class="hljs-type">HashMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">Int</span>]()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <ul>
+<li>using the <code>object.Map.apply</code> method</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mutable.<span class="hljs-type">HashMap</span>(<span class="hljs-string">"One"</span> -&gt; <span class="hljs-number">1</span>, <span class="hljs-string">"Two"</span> -&gt; <span class="hljs-number">2</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>create the map. Note that days in <code>java.util.Calendar</code> are <code>int</code> constants, not enum.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> java.util.<span class="hljs-type">Calendar</span>._
+
+<span class="hljs-keyword">var</span> weekdays = <span class="hljs-keyword">new</span> mutable.<span class="hljs-type">LinkedHashMap</span>[<span class="hljs-type">Int</span>, <span class="hljs-type">String</span>]
+weekdays += (<span class="hljs-type">MONDAY</span> -&gt; <span class="hljs-string">"Monday"</span>)
+weekdays += (<span class="hljs-type">TUESDAY</span> -&gt; <span class="hljs-string">"Tuesday"</span>)
+weekdays += (<span class="hljs-type">WEDNESDAY</span> -&gt; <span class="hljs-string">"Wednesday"</span>)
+weekdays += (<span class="hljs-type">THURSDAY</span> -&gt; <span class="hljs-string">"Thursday"</span>)
+weekdays += (<span class="hljs-type">FRIDAY</span> -&gt; <span class="hljs-string">"Friday"</span>)
+weekdays += (<span class="hljs-type">SATURDAY</span> -&gt; <span class="hljs-string">"Saturday"</span>)
+weekdays += (<span class="hljs-type">SUNDAY</span> -&gt; <span class="hljs-string">"Sunday"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Iterating over the elements follows the insertion order:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">for</span> (entry &lt;- weekdays) println(entry)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>One can do a more concise example with:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">for</span> ((k, v) &lt;- mutable.<span class="hljs-type">LinkedHashMap</span>(
+  <span class="hljs-string">"Monday"</span> -&gt; <span class="hljs-type">MONDAY</span>,
+  <span class="hljs-string">"Tuesday"</span> -&gt; <span class="hljs-type">TUESDAY</span>,
+  <span class="hljs-string">"Wednesday"</span> -&gt; <span class="hljs-type">WEDNESDAY</span>,
+  <span class="hljs-string">"Thursday"</span> -&gt; <span class="hljs-type">THURSDAY</span>,
+  <span class="hljs-string">"Friday"</span> -&gt; <span class="hljs-type">FRIDAY</span>,
+  <span class="hljs-string">"Saturday"</span> -&gt; <span class="hljs-type">SATURDAY</span>,
+  <span class="hljs-string">"Sunday"</span> -&gt; <span class="hljs-type">SUNDAY</span>))
+  println(<span class="hljs-string">s""</span><span class="hljs-string">""</span>$k\<span class="hljs-string">" -&gt; $v"</span><span class="hljs-string">""</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <h2 id="exercise-7">Exercise 7</h2>
+<blockquote>
+<p>Print a table of all Java properties</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>First, convert the java properties to a scala map</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> scala.collection.<span class="hljs-type">JavaConverters</span>._
+
+<span class="hljs-keyword">val</span> props: <span class="hljs-type">MutableMap</span>[<span class="hljs-type">String</span>, <span class="hljs-type">String</span>] = <span class="hljs-type">System</span>.getProperties().asScala</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>Get the longest key:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> longestKey = props.keys.foldLeft(<span class="hljs-number">0</span>) {
+  (cnt, k) =&gt; <span class="hljs-keyword">if</span> (k.length &gt; cnt) k.length <span class="hljs-keyword">else</span> cnt
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>Print the table:</p>
+<p>the call to <code>take</code> limits the value size, since properties can be quite
+long.</p>
+<p>to format the string, we first use <em>string interpolation</em> to create the
+formatter (ending with something like <code>s&quot;%-15s| %s&quot;</code>, <code>%s</code> being a string placeholder
+and <code>-15</code> meaning “<em>a right padding</em> of 15”), then we use the <code>format</code> method to replace
+the placeholders with actual values.</p>
+<p>result:</p>
+<pre><code>java.runtime.name             | <span class="hljs-type">Java</span>(<span class="hljs-type">TM</span>) <span class="hljs-type">SE</span> <span class="hljs-type">Runtime</span> <span class="hljs-type">Environment</span>
+java.vm.specification.vendor  | <span class="hljs-type">Oracle</span> <span class="hljs-type">Corporation</span>
+java.vm.version               | <span class="hljs-number">25.92</span>-b14
+user.country.format           | <span class="hljs-type">CH</span>
+gopherProxySet                | <span class="hljs-literal">false</span>
+java.vm.vendor                | <span class="hljs-type">Oracle</span> <span class="hljs-type">Corporation</span>
+java.vendor.url               | http:<span class="hljs-comment">//java.oracle.com/</span>
+path.separator                | :
+...
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">for</span> ((k, v) &lt;- props)
+  println(<span class="hljs-string">s"%-<span class="hljs-subst">${longestKey + 1}</span>s| %s"</span> format(k, v take <span class="hljs-number">40</span>))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <h2 id="exercise-8">Exercise 8</h2>
+<blockquote>
+<p>Write a function minmax(values: Array[Int]) that returns a pair containing the smallest and largest values in the array.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Okay, I am quite fond of the <code>fold</code> method…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">minmax</span></span>(array: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>]) = array.foldLeft((<span class="hljs-type">Int</span>.<span class="hljs-type">MaxValue</span>, <span class="hljs-type">Int</span>.<span class="hljs-type">MinValue</span>)) {
+  (tup, i) =&gt; (tup._1 min i, tup._2 max i)
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <h2 id="exercise-9">Exercise 9</h2>
+<blockquote>
+<p>Write a function lteqgt(values: Array[Int], v: Int) that returns a triple containing the counts of values less than v, equal to v, and greater than v.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>Using a foreach:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lteggt1</span></span>(values: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>], v: <span class="hljs-type">Int</span>) = {
+  <span class="hljs-keyword">var</span> (less, eq, high) = (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+
+  values.foreach {
+    i =&gt; <span class="hljs-keyword">if</span> (i &lt; v) less += <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i == v) eq += <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> high += <span class="hljs-number">1</span>
+  }
+
+  (less, eq, high)
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Using (again) a fold:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lteggt2</span></span>(values: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>], v: <span class="hljs-type">Int</span>) = values.foldLeft((<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)) {
+  (tup, i) =&gt;
+    (
+      tup._1 + (<span class="hljs-keyword">if</span> (i &lt; v) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>),
+      tup._2 + (<span class="hljs-keyword">if</span> (i == v) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>),
+      tup._3 + (<span class="hljs-keyword">if</span> (i &gt; v) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>)
+    )
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>We could simplify the fold by defining two <em>implicits</em> :</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <ol>
+<li>a conversion boolean =&gt; int</li>
+</ol>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">implicit</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bool2int</span></span>(b: <span class="hljs-type">Boolean</span>) = <span class="hljs-keyword">if</span> (b) <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <ol>
+<li>the “+” operator between tuple3</li>
+</ol>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">implicit</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Tupple3Add</span>(<span class="hljs-params">t1: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>, <span class="hljs-type">Int</span></span>)) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">+</span></span>(t2: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>)) =
+      (t1._1 + t2._1, t1._2 + t2._2, t1._3 + t2._3)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>and here we go:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lteggt3</span></span>(values: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>], v: <span class="hljs-type">Int</span>) = values.foldLeft((<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)) {
+    (tup, i) =&gt; tup + (i &lt; v, i == v, i &gt; v)
+  }
+
+}
+
+<span class="hljs-keyword">val</span> arr = (<span class="hljs-number">0</span> to <span class="hljs-number">10</span>).toArray
+lteggt1(arr, <span class="hljs-number">5</span>) <span class="hljs-comment">//&gt; (Int, Int, Int) = (5,1,5)</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <h2 id="exercise-10">Exercise 10</h2>
+<blockquote>
+<p>What happens when you zip together two strings, such as <code>&quot;Hello&quot;.zip(&quot;World&quot;)</code>? Come up with a plausible use case.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-string">"Hello"</span>.zip(<span class="hljs-string">"World"</span>) ==
+  <span class="hljs-type">Vector</span>(('<span class="hljs-type">H</span>', '<span class="hljs-type">W</span>'), ('e', 'o'), ('l', 'r'), ('l', 'l'), ('o', 'd'))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>Say we need a mapping between lowercase and uppercase:</p>
+<p>(ok, it is completely useless, but hey ! I tried)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">val</span> lowerUpper = <span class="hljs-string">"abcdefghijklmnopqrstuvwxyz"</span> zip <span class="hljs-string">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span> toMap</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

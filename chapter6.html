@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 6</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter1.html">
+                  chapter1
+                </a>
+              
+                
+                <a class="source" href="chapter2.html">
+                  chapter2
+                </a>
+              
+                
+                <a class="source" href="chapter3.html">
+                  chapter3
+                </a>
+              
+                
+                <a class="source" href="chapter4.html">
+                  chapter4
+                </a>
+              
+                
+                <a class="source" href="chapter5.html">
+                  chapter5
+                </a>
+              
+                
+                <a class="source" href="chapter6.html">
+                  chapter6
+                </a>
+              
+                
+                <a class="source" href="chapter7.html">
+                  chapter7
+                </a>
+              
+                
+                <a class="source" href="chapter8.html">
+                  chapter8
+                </a>
+              
+                
+                <a class="source" href="chapter9.html">
+                  chapter9
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-6">Scala For The Impatient – Chapter 6</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="exercise-1">Exercise 1</h2>
+<blockquote>
+<p>Write an object Conversions with methods inchesToCentimeters, gallonsToLiters, and milesToKilometers.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Conversions</span> </span>{
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inchesToCentimeters</span> </span>= <span class="hljs-number">2.54</span> * (_: <span class="hljs-type">Double</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gallonsToLiters</span> </span>= <span class="hljs-number">3.78541</span> * (_: <span class="hljs-type">Double</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">milesToKilometers</span> </span>= <span class="hljs-number">1.60934</span> * (_: <span class="hljs-type">Double</span>)
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="exercise-2">Exercise 2</h2>
+<blockquote>
+<p>The preceding problem wasn’t very object-oriented. Provide a general super- class UnitConversion and define objects InchesToCentimeters, GallonsToLiters, and MilesToKilometers that extend it.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnitConversion</span>(<span class="hljs-params">conversionFactor: <span class="hljs-type">Double</span></span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert</span></span>(d: <span class="hljs-type">Double</span>): <span class="hljs-type">Double</span> = d * conversionFactor
+}
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">InchesToCentimeters</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UnitConversion</span>(<span class="hljs-params">2.54</span>) </span>{}
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">GallonsToLiters</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UnitConversion</span>(<span class="hljs-params">3.78541</span>) </span>{}
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">MilesToKilometers</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UnitConversion</span>(<span class="hljs-params">1.60934</span>) </span>{}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="exercise-3">Exercise 3</h2>
+<blockquote>
+<p>Define an Origin object that extends java.awt.Point. Why is this not actually a good idea? (Have a close look at the methods of the Point class.)</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Why is it bad ? Hum.</p>
+<ul>
+<li>Many of the methods in class Point take a Point2D as a parameter ?</li>
+<li>a Point is something that moves and changes, while an origin should have readonly coordinates ?</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>{
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Origin</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">java</span>.<span class="hljs-title">awt</span>.<span class="hljs-title">Point</span> </span>{}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="exercise-4">Exercise 4</h2>
+<blockquote>
+<p>Define a Point class with a companion object so that you can construct Point instances as Point(3, 4), without using new.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>One way to go is to define <code>apply</code> method of the object companion:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(x: <span class="hljs-type">Int</span>, y: <span class="hljs-type">Int</span>) = <span class="hljs-keyword">new</span> <span class="hljs-type">Point</span>(x, y)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>(in the IntelliJ scala worksheet, the compilation fails if
+I declare the Point class before its object companion…)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>(<span class="hljs-params">x: <span class="hljs-type">Int</span> = 0, y: <span class="hljs-type">Int</span> = 0</span>) </span>{}
+
+
+  <span class="hljs-keyword">val</span> p = <span class="hljs-type">Point</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  println(p) <span class="hljs-comment">//&gt; A$A0$A$A0$Point$7@482b272</span>
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>We can also make our <code>Point</code> class a <em>case class</em>.
+Case classes are just regular classes that are:</p>
+<ol>
+<li>Immutable by default</li>
+<li>Decomposable through pattern matching</li>
+<li>Compared by structural equality instead of by reference</li>
+<li>Succinct to instantiate and operate on</li>
+</ol>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+{
+  <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>(<span class="hljs-params">x: <span class="hljs-type">Int</span> = 0, y: <span class="hljs-type">Int</span> = 0</span>) </span>{}
+  <span class="hljs-keyword">val</span> p = <span class="hljs-type">Point</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  println(p) <span class="hljs-comment">//&gt; Point(1,1)</span>
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="exercise-5">Exercise 5</h2>
+<blockquote>
+<p>Write a Scala application, using the App trait, that prints the command-line arguments in reverse order, separated by spaces. For example, scala Reverse Hello World should print World Hello.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Reverse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">App</span> </span>{
+  println(args.reverse.mkString(<span class="hljs-string">" "</span>))
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h2 id="exercise-6">Exercise 6</h2>
+<blockquote>
+<p>Write an enumeration describing the four playing card suits so that the toString method returns ♣, ♦, ♥, or ♠.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">CardSuit</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Enumeration</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Add a type alias to the CardSuit.Value so that you
+can use <code>CardSuit</code> instead of <code>CardSuit.Value</code> in parameters type:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">CardSuit</span> </span>= <span class="hljs-type">Value</span>
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Hearts</span> = <span class="hljs-type">Value</span>(<span class="hljs-string">"♥"</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Diamonds</span> = <span class="hljs-type">Value</span>(<span class="hljs-string">"♦"</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Clubs</span> = <span class="hljs-type">Value</span>(<span class="hljs-string">"♣"</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Spades</span> = <span class="hljs-type">Value</span>(<span class="hljs-string">"♠"</span>)
+}
+
+println(<span class="hljs-type">CardSuit</span>.<span class="hljs-type">Hearts</span>) <span class="hljs-comment">//&gt; ♥</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="exercise-7">Exercise 7</h2>
+<blockquote>
+<p>Implement a function that checks whether a card suit value from the preceding exercise is red.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Without import, the parameter type would by <code>CardSuit.CardSuit</code>.
+Without type alias, the parameter type would by <code>CardSuit.Value</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> <span class="hljs-type">CardSuit</span>._
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isRed</span></span>(suit: <span class="hljs-type">CardSuit</span>): <span class="hljs-type">Boolean</span> =
+  suit == <span class="hljs-type">Hearts</span> || suit == <span class="hljs-type">Diamonds</span>
+
+println(isRed(<span class="hljs-type">Spades</span>))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <blockquote>
+<p>false</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h2 id="exercise-8">Exercise 8</h2>
+<blockquote>
+<p>Write an enumeration describing the eight corners of the RGB color cube. As IDs, use the color values (for example, 0xff0000 for Red).</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">RGBColors</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Enumeration</span> </span>{
+  <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">RGBColors</span> </span>= <span class="hljs-type">Value</span>
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Black</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0x000000</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">White</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0xffffff</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Red</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0xff0000</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Green</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0x00ff00</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Blue</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0x0000ff</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Yellow</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0xffff00</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Cyan</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0x00ffff</span>)
+  <span class="hljs-keyword">val</span> <span class="hljs-type">Magenta</span> = <span class="hljs-type">Value</span>(<span class="hljs-number">0xff00ff</span>)
+}
+
+println(<span class="hljs-type">RGBColors</span>.<span class="hljs-type">Black</span>) <span class="hljs-comment">//&gt; Black</span>
+println(<span class="hljs-string">"0x%x"</span>.format(<span class="hljs-type">RGBColors</span>.<span class="hljs-type">Red</span>.id)) <span class="hljs-comment">//&gt; 0xff0000</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
