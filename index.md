@@ -1,6 +1,8 @@
 # Scala for the Impatient
 
-You can find my answers by following those links:
+You can find my answers by following those links.
+
+__Part 1__:
 
 * [Chapter 1. The Basics](chapter1.html)
 * [Chapter 2. Control Structures and Functions](chapter2.html)
@@ -12,13 +14,16 @@ You can find my answers by following those links:
 * [Chapter 8. Inheritance](chapter8.html)
 * [Chapter 9. Files and Regular Expressions](chapter9.html)
 
-## TODO (deadlinks)
+__Part 2__: 
 
 * [Chapter 10. Traits](chapter10.html)
-* [Chapter 11. Operators](chapter11.html)
 * [Chapter 12. Higher-Order Functions](chapter12.html)
 * [Chapter 13. Collections](chapter13.html)
 * [Chapter 14. Pattern Matching and Case Classes](chapter14.html)
+
+## TODO (deadlinks)
+
+* [Chapter 11. Operators](chapter11.html)
 * [Chapter 15. Annotations](chapter15.html)
 * [Chapter 16. XML Processing](chapter16.html)
 * [Chapter 17. Type Parameters](chapter17.html)
