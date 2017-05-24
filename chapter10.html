@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 10</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter01.html">
+                  chapter01
+                </a>
+              
+                
+                <a class="source" href="chapter02.html">
+                  chapter02
+                </a>
+              
+                
+                <a class="source" href="chapter03.html">
+                  chapter03
+                </a>
+              
+                
+                <a class="source" href="chapter04.html">
+                  chapter04
+                </a>
+              
+                
+                <a class="source" href="chapter05.html">
+                  chapter05
+                </a>
+              
+                
+                <a class="source" href="chapter06.html">
+                  chapter06
+                </a>
+              
+                
+                <a class="source" href="chapter07.html">
+                  chapter07
+                </a>
+              
+                
+                <a class="source" href="chapter08.html">
+                  chapter08
+                </a>
+              
+                
+                <a class="source" href="chapter09.html">
+                  chapter09
+                </a>
+              
+                
+                <a class="source" href="chapter10.html">
+                  chapter10
+                </a>
+              
+                
+                <a class="source" href="chapter12.html">
+                  chapter12
+                </a>
+              
+                
+                <a class="source" href="chapter13.html">
+                  chapter13
+                </a>
+              
+                
+                <a class="source" href="chapter14.html">
+                  chapter14
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-10">Scala For The Impatient – Chapter 10</h1>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> java.awt.<span class="hljs-type">Point</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="exercise-1">Exercise 1</h2>
+<blockquote>
+<p>The java.awt.Rectangle class has useful methods translate and grow that are unfortunately absent from classes such as java.awt.geom.Ellipse2D. In Scala, you can fix this problem. Define a trait RectangleLike with concrete methods translate and grow. Provide any abstract methods that you need for the implementation, so that you can mix in the trait like this:
+<code>`
+val egg = new java.awt.geom.Ellipse2D.Double(5, 10, 20, 30) with RectangleLike egg.translate(10, -10)
+egg.grow(10, 20)</code></p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Note that:</p>
+<ul>
+<li>we can use anything other than <code>this</code> to get a reference on the object extending <code>RectangularShape</code>. Here we chose <code>self</code>, but <code>foo</code> would also work</li>
+<li>we return <code>self</code>, which is useful in a worksheet or during a test, since we can write <code>println(egg.translate(x,y))</code></li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">RectangleLike</span> </span>{
+  self: java.awt.geom.<span class="hljs-type">RectangularShape</span> =&gt;
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">translate</span></span>(dx: <span class="hljs-type">Int</span>, dy: <span class="hljs-type">Int</span>) = {
+    self.setFrame(self.getX + dx, self.getY + dy,
+      self.getWidth, self.getHeight)
+    self
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">grow</span></span>(byWidth: <span class="hljs-type">Int</span>, byHeight: <span class="hljs-type">Int</span>) = {
+    self.setFrame(self.getX, self.getY,
+      self.getWidth + byWidth, self.getHeight + byHeight)
+    self
+  }
+
+  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">toString</span> </span>= <span class="hljs-string">s"RectangleLike[<span class="hljs-subst">$getX</span>, <span class="hljs-subst">$getY</span>, <span class="hljs-subst">$getWidth</span>, <span class="hljs-subst">$getHeight</span>]"</span>
+}
+
+
+<span class="hljs-keyword">val</span> egg = <span class="hljs-keyword">new</span> java.awt.geom.<span class="hljs-type">Ellipse2D</span>.<span class="hljs-type">Double</span>(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>) <span class="hljs-keyword">with</span> <span class="hljs-type">RectangleLike</span> <span class="hljs-comment">// RectangleLike[5.0, 10.0, 20.0, 30.0]</span>
+egg.translate(<span class="hljs-number">10</span>, <span class="hljs-number">-10</span>) <span class="hljs-comment">// RectangleLike[15.0, 0.0, 20.0, 30.0]</span>
+egg.grow(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>RectangleLike[15.0, 0.0, 22.0, 32.0]</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="exercise-2">Exercise 2</h2>
+<blockquote>
+<p>Define a class OrderedPoint by mixing scala.math.Ordered[Point] into java.awt.Point. Use lexicographic ordering, i.e. (x, y) &lt; (x’, y’) if x &lt; x’ or x = x’ and y &lt; y’.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderedPoint</span>(<span class="hljs-params">x: <span class="hljs-type">Int</span>, y: <span class="hljs-type">Int</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">java</span>.<span class="hljs-title">awt</span>.<span class="hljs-title">Point</span>(<span class="hljs-params">x, y</span>) <span class="hljs-keyword">with</span> <span class="hljs-title">Ordered</span>[<span class="hljs-type">Point</span>] </span>{
+  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compare</span></span>(that: <span class="hljs-type">Point</span>): <span class="hljs-type">Int</span> = {
+    <span class="hljs-keyword">if</span> (getX == that.getX) getY compare that.getY
+    <span class="hljs-keyword">else</span> getX compare that.getX
+  }
+}
+
+<span class="hljs-keyword">new</span> <span class="hljs-type">OrderedPoint</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) &lt; <span class="hljs-keyword">new</span> <span class="hljs-type">OrderedPoint</span>(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="exercise-3">Exercise 3</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <blockquote>
+<p>Look at the BitSet class, and make a diagram of all its superclasses and traits. Ignore the type parameters (everything inside the […]). Then give the linearization of the traits.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>TODO</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="exercise-4">Exercise 4</h2>
+<blockquote>
+<p>Provide a CryptoLogger class that encrypts the log messages with the Caesar cipher. The key should be 3 by default, but it should be overridable by the user. Provide usage examples with the default key and a key of –3.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Logger</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">log</span></span>(msg: <span class="hljs-type">String</span>) <span class="hljs-comment">// an abstract method</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">ConsoleLogger</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Logger</span> </span>{
+  <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">log</span></span>(msg: <span class="hljs-type">String</span>) = println(<span class="hljs-string">"log: "</span> + msg)
+}
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">CryptoLogger</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Logger</span> </span>{
+  <span class="hljs-keyword">val</span> key = <span class="hljs-number">3</span> <span class="hljs-comment">//</span>
+  <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">log</span></span>(msg: <span class="hljs-type">String</span>) = <span class="hljs-keyword">super</span>.log(msg.map(c =&gt; (key + c).toChar ).mkString)
+}
+
+<span class="hljs-keyword">val</span> logger1 = <span class="hljs-keyword">new</span> <span class="hljs-type">ConsoleLogger</span> <span class="hljs-keyword">with</span> <span class="hljs-type">CryptoLogger</span>
+logger1.log(<span class="hljs-string">"hello world"</span>)
+
+<span class="hljs-keyword">val</span> logger2 = <span class="hljs-keyword">new</span> <span class="hljs-type">ConsoleLogger</span> <span class="hljs-keyword">with</span> <span class="hljs-type">CryptoLogger</span> {<span class="hljs-keyword">override</span> <span class="hljs-keyword">val</span> key = <span class="hljs-number">0</span>}
+logger2.log(<span class="hljs-string">"hello world"</span>)</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Scala For The Impatient -- Chapter 13</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index
+                </a>
+              
+                
+                <a class="source" href="chapter01.html">
+                  chapter01
+                </a>
+              
+                
+                <a class="source" href="chapter02.html">
+                  chapter02
+                </a>
+              
+                
+                <a class="source" href="chapter03.html">
+                  chapter03
+                </a>
+              
+                
+                <a class="source" href="chapter04.html">
+                  chapter04
+                </a>
+              
+                
+                <a class="source" href="chapter05.html">
+                  chapter05
+                </a>
+              
+                
+                <a class="source" href="chapter06.html">
+                  chapter06
+                </a>
+              
+                
+                <a class="source" href="chapter07.html">
+                  chapter07
+                </a>
+              
+                
+                <a class="source" href="chapter08.html">
+                  chapter08
+                </a>
+              
+                
+                <a class="source" href="chapter09.html">
+                  chapter09
+                </a>
+              
+                
+                <a class="source" href="chapter10.html">
+                  chapter10
+                </a>
+              
+                
+                <a class="source" href="chapter12.html">
+                  chapter12
+                </a>
+              
+                
+                <a class="source" href="chapter13.html">
+                  chapter13
+                </a>
+              
+                
+                <a class="source" href="chapter14.html">
+                  chapter14
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    
+    
+        <a class="home" href="index.html">⏎</a>
+    
+
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="scala-for-the-impatient-chapter-13">Scala For The Impatient – Chapter 13</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="exercise-2">Exercise 2</h1>
+<blockquote>
+<p>Using pattern matching, write a function swap that receives a pair of integers and returns the pair with the components swapped.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">swap</span></span>(t: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>)): (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>) = t <span class="hljs-keyword">match</span> {<span class="hljs-keyword">case</span> (x, y) =&gt; (y, x)}
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">swap_</span></span>(t: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>)): (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span>) = (t._2, t._1)
+
+swap((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))
+swap_((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h1 id="exercise-2">Exercise 2</h1>
+<blockquote>
+<p>Using pattern matching, write a function swap that swaps the first two elements of an array provided its length is at least two.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">swapFirstTwo</span></span>[<span class="hljs-type">T</span>](lst: <span class="hljs-type">List</span>[<span class="hljs-type">T</span>]) = lst <span class="hljs-keyword">match</span> {
+  <span class="hljs-keyword">case</span> <span class="hljs-type">List</span>(x, y, tail@_*) =&gt; y +: x +: tail
+  <span class="hljs-keyword">case</span> other =&gt; other
+}
+
+swapFirstTwo((<span class="hljs-number">1</span> to <span class="hljs-number">5</span>).toList) <span class="hljs-comment">//&gt; List(2, 1, 3, 4, 5)</span>
+swapFirstTwo(<span class="hljs-type">List</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)) <span class="hljs-comment">//&gt; List(2, 1)</span>
+swapFirstTwo(<span class="hljs-type">List</span>(<span class="hljs-number">1</span>)) <span class="hljs-comment">//&gt; List(1)</span>
+swapFirstTwo(<span class="hljs-type">List</span>())</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <blockquote>
+<p>List()</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h1 id="exercise-3">Exercise 3</h1>
+<blockquote>
+<p> Add a case class <code>Multiple</code> that is a subclass of the <code>Item</code> class. For example, Multiple(10, Product(“Blackwell Toaster”, 29.95)) describes ten toasters. Of course, you should be able to handle any items, such as bundles or multiples, in the second argument. Extend the price function to handle this new case.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Item</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">thePrice</span></span>(): <span class="hljs-type">Double</span> = <span class="hljs-keyword">this</span> <span class="hljs-keyword">match</span> {
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Article</span>(_, price) =&gt; price
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Bundle</span>(_, discount, items@_*) =&gt; items.map(_.thePrice).sum - discount
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Multiple</span>(n, item) =&gt; n * item.thePrice
+  }
+}
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Article</span>(<span class="hljs-params">description: <span class="hljs-type">String</span>, price: <span class="hljs-type">Double</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">Item</span></span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bundle</span>(<span class="hljs-params">description: <span class="hljs-type">String</span>, discount: <span class="hljs-type">Double</span>, items: <span class="hljs-type">Item</span>*</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">Item</span></span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Multiple</span>(<span class="hljs-params">n: <span class="hljs-type">Int</span>, item: <span class="hljs-type">Item</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">Item</span></span>
+
+<span class="hljs-keyword">val</span> bundle = <span class="hljs-type">Bundle</span>(<span class="hljs-string">"Father's day special"</span>, <span class="hljs-number">20.0</span>,
+  <span class="hljs-type">Article</span>(<span class="hljs-string">"Scala for the Impatient"</span>, <span class="hljs-number">39.95</span>),
+  <span class="hljs-type">Bundle</span>(<span class="hljs-string">"Anchor Distillery Sampler"</span>, <span class="hljs-number">10.0</span>,
+    <span class="hljs-type">Article</span>(<span class="hljs-string">"Old Potrero Straight Rye Whiskey"</span>, <span class="hljs-number">79.95</span>),
+    <span class="hljs-type">Article</span>(<span class="hljs-string">"Junípero Gin"</span>, <span class="hljs-number">32.95</span>)))
+
+<span class="hljs-keyword">val</span> multiple = <span class="hljs-type">Bundle</span>(<span class="hljs-string">"another bundle"</span>, <span class="hljs-number">10.0</span>, <span class="hljs-type">Multiple</span>(<span class="hljs-number">4</span>, <span class="hljs-type">Article</span>(<span class="hljs-string">"Rubber band"</span>, <span class="hljs-number">20</span>)))
+
+bundle.thePrice <span class="hljs-comment">//&gt; 122.85000000000002</span>
+multiple.thePrice <span class="hljs-comment">//&gt; 70.0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h1 id="exercise-5">Exercise  5</h1>
+<blockquote>
+<p> One can use lists to model trees that store values only in the leaves. For example, the list ((3 8) 2 (5)) describes a tree.  Write a leafSum function to compute the sum of all elements in the leaves, using pattern matching to differentiate between numbers and lists.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">leafSum</span></span>(tree: <span class="hljs-type">List</span>[<span class="hljs-type">Any</span>]): <span class="hljs-type">Int</span> = tree <span class="hljs-keyword">match</span> {
+  <span class="hljs-keyword">case</span> (head: <span class="hljs-type">Int</span>) :: tail =&gt; head + leafSum(tail)
+  <span class="hljs-keyword">case</span> (head<span class="hljs-meta">@List</span>(_*)) :: tail =&gt; leafSum(head) + leafSum(tail)
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Nil</span> =&gt; <span class="hljs-number">0</span>
+}
+
+<span class="hljs-keyword">val</span> tree = <span class="hljs-type">List</span>(<span class="hljs-type">List</span>(<span class="hljs-number">3</span>, <span class="hljs-number">8</span>), <span class="hljs-number">2</span>, <span class="hljs-type">List</span>(<span class="hljs-number">5</span>))
+leafSum(tree)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h1 id="exercise-6">Exercise 6</h1>
+<blockquote>
+<p>A better way of modeling such trees is with case classes. Let’s start with binary trees.  Write a function to compute the sum of all elements in the leaves.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">sealed</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BinaryTree</span></span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leaf</span>(<span class="hljs-params">value: <span class="hljs-type">Int</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">BinaryTree</span></span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>(<span class="hljs-params">left: <span class="hljs-type">BinaryTree</span>, right: <span class="hljs-type">BinaryTree</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">BinaryTree</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">leafSum</span></span>(tree: <span class="hljs-type">BinaryTree</span>): <span class="hljs-type">Double</span> = tree <span class="hljs-keyword">match</span> {
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Leaf</span>(value) =&gt; value
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Node</span>(left, right) =&gt; leafSum(left) + leafSum(right)
+}
+
+<span class="hljs-keyword">val</span> binTree = <span class="hljs-type">Node</span>(<span class="hljs-type">Node</span>(<span class="hljs-type">Leaf</span>(<span class="hljs-number">3</span>), <span class="hljs-type">Leaf</span>(<span class="hljs-number">8</span>)), <span class="hljs-type">Node</span>(<span class="hljs-type">Leaf</span>(<span class="hljs-number">2</span>), <span class="hljs-type">Leaf</span>(<span class="hljs-number">5</span>)))
+leafSum(binTree)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <blockquote>
+<p>18</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">sealed</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpressionTree</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eval</span></span>(): <span class="hljs-type">Int</span> = <span class="hljs-keyword">this</span> <span class="hljs-keyword">match</span> {
+    <span class="hljs-keyword">case</span> o: <span class="hljs-type">Operand</span> =&gt; o.value
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Expression</span>(left, op, right) =&gt; op(left.eval, right.eval)
+  }
+}
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Operand</span>(<span class="hljs-params">value: <span class="hljs-type">Int</span></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">ExpressionTree</span></span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expression</span>(<span class="hljs-params">left: <span class="hljs-type">ExpressionTree</span>, oper: (<span class="hljs-type">Int</span>, <span class="hljs-type">Int</span></span>) <span class="hljs-title">=&gt;</span> <span class="hljs-title">Int</span>, <span class="hljs-title">right</span></span>: <span class="hljs-type">ExpressionTree</span>) <span class="hljs-keyword">extends</span> <span class="hljs-type">ExpressionTree</span>
+
+<span class="hljs-keyword">val</span> expr = <span class="hljs-type">Expression</span>(
+  <span class="hljs-type">Expression</span>(<span class="hljs-type">Operand</span>(<span class="hljs-number">3</span>), _ * _, <span class="hljs-type">Operand</span>(<span class="hljs-number">8</span>)),
+  _ + _,
+  <span class="hljs-type">Expression</span>(<span class="hljs-type">Operand</span>(<span class="hljs-number">2</span>), _ + _, <span class="hljs-type">Operand</span>(<span class="hljs-number">-5</span>))) <span class="hljs-comment">// (3 × 8) + 2 + (–5) = 21.</span>
+
+expr.eval <span class="hljs-comment">//&gt; 21</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h1 id="exercise-8">Exercise 8</h1>
+<blockquote>
+<p> Extend the tree in the preceding exercise so that each nonleaf node stores an operator in addition to the child nodes. Then write a function eval that computes the value.</p>
+</blockquote>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h1 id="exercise-9">Exercise 9</h1>
+<blockquote>
+<p>Write a function that computes the sum of the non-None values in a List[Option[Int]]. Don’t use a match statement.</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">nonNoneInList</span></span>(lst: <span class="hljs-type">List</span>[<span class="hljs-type">Option</span>[<span class="hljs-type">Int</span>]]): <span class="hljs-type">List</span>[<span class="hljs-type">Int</span>] = lst.flatten</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h1 id="exercise-10">Exercise 10</h1>
+<blockquote>
+<p>Write a function that composes two functions of type Double =&gt; Option[Double], yielding another function of the same type. The composition should yield None if either function does. For example,</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span></span>(x: <span class="hljs-type">Double</span>) = <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span>) <span class="hljs-type">Some</span>(<span class="hljs-type">Math</span>.sqrt(x)) <span class="hljs-keyword">else</span> <span class="hljs-type">None</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">g</span></span>(x: <span class="hljs-type">Double</span>) = <span class="hljs-keyword">if</span> (x != <span class="hljs-number">1</span>) <span class="hljs-type">Some</span>(<span class="hljs-number">1</span> / (x - <span class="hljs-number">1</span>)) <span class="hljs-keyword">else</span> <span class="hljs-type">None</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compose</span></span>(f: <span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Option</span>[<span class="hljs-type">Double</span>], g: <span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Option</span>[<span class="hljs-type">Double</span>]):
+<span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Option</span>[<span class="hljs-type">Double</span>] =
+  f(_) <span class="hljs-keyword">match</span> {
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Some</span>(x) =&gt; g(x)
+    <span class="hljs-keyword">case</span> <span class="hljs-type">None</span> =&gt; <span class="hljs-type">None</span>
+  }
+
+<span class="hljs-keyword">val</span> h = compose(f, g)
+h(<span class="hljs-number">10</span>) <span class="hljs-comment">//&gt; Some(0.4624752955742643)</span>
+h(<span class="hljs-number">0</span>) <span class="hljs-comment">//&gt; Some(-1.0)</span>
+h(<span class="hljs-number">-1</span>) <span class="hljs-comment">//&gt; None</span>
+h(<span class="hljs-number">1</span>) <span class="hljs-comment">//&gt; None</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
