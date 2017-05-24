@@ -83,9 +83,42 @@ val someList = (1 to 10).toList
 // use `indices` vs `0 until list.length`
 someList.indices //> Range 0 until 10
 // group elements with `grouped`
-someList.grouped(2).toList  //> List( List(1,2), List(3,4) ...  )
+someList.grouped(2).toList //> List( List(1,2), List(3,4) ...  )
 // get a slice of an array using `slice(from_inclusive, to_exclusive)`
-someList.slice(2,5)   //> List(3, 4, 5)
+someList.slice(2, 5)
+
+//> List(3, 4, 5)
 
 // # Generics
 // There is type erasure, _except for List_ !
+
+// # Varargs
+
+// to specify varargs, use `Class*`. For example:
+case class BagOfWords(descr: String, bag: String*)
+
+val bag1 = BagOfWords("empty bag")
+val bag2 = BagOfWords("bag of two", "hello", "world")
+
+// then, to use it in pattern matching, use `*_` with an alias:
+def bagsMatch(bag: BagOfWords) = bag match {
+  case BagOfWords(descr) => "EMPTY: " + descr
+  case BagOfWords(descr, alias@_*) => "NOT EMPTY: " + alias.mkString(", ")
+}
+
+bagsMatch(bag1) //> EMPTY: empty bag
+bagsMatch(bag2) //> NOT EMPTY: hello, world
+
+// # Pattern matching
+
+// Notice how we can specify types and use List(_*):
+def leafSum(tree: List[Any]): Int = tree match {
+  case (head: Int) :: tail => head + leafSum(tail)
+  case (head@List(_*)) :: tail => leafSum(head) + leafSum(tail)
+  case Nil => 0
+}
+
+val tree = List(List(3, 8), 2, List(5))
+leafSum(tree) //> 18
+
+
